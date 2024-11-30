@@ -1,29 +1,30 @@
-class Carga implements Interfaceporto {
+class Veiculos_terrestres implements Interfaceporto {
+  // Atributos da classe
   boolean status_operacional;
-  double capacidade; // Capacidade do barco em toneladas
+  double capacidade; // Capacidade de carga do veículo em toneladas
   String tipo_de_carga;
 
   // Construtor que inicializa os objetos
-  public Carga(String tipo, boolean ou, double capa) {
+  public Veiculos_terrestres(String tipo, boolean ou, double capa) {
       this.status_operacional = ou;
       this.capacidade = capa;
       this.tipo_de_carga = tipo;
   }
 
-  // Função para calcular o tempo estimado de atraque do barco
-  public double calcularTempoDeAtracacao(double distancia, double velocidadeMedia) {
+  // Função para calcular o tempo estimado de transporte
+  public double calcularTempoDeTransporte(double distancia, double velocidadeMedia) {
       if (!status_operacional) {
-          System.out.println("O barco está fora de operação.");
+          System.out.println("O veículo está fora de operação.");
           return -1; // Retorna -1 para indicar que o cálculo não foi possível
       }
 
       if (velocidadeMedia <= 0) {
           System.out.println("Erro: Velocidade média inválida.");
-          return -1; // Verifica se a velocidade média é válida
+          return -1;
       }
 
       double tempo = distancia / velocidadeMedia; // Fórmula: tempo = distância / velocidade
-      System.out.printf("Tempo estimado para atraque da carga: %.2f horas%n", tempo);
+      System.out.printf("Tempo estimado para transportar a carga: %.2f horas%n", tempo);
       return tempo;
   }
   @Override

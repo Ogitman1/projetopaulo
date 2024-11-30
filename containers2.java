@@ -1,30 +1,30 @@
-class Carga implements Interfaceporto {
+class Containeres implements Interfaceporto{
   boolean status_operacional;
-  double capacidade; // Capacidade do barco em toneladas
+  double capacidade;
   String tipo_de_carga;
 
   // Construtor que inicializa os objetos
-  public Carga(String tipo, boolean ou, double capa) {
+  public Containeres(String tipo, boolean ou, double capa) {
       this.status_operacional = ou;
       this.capacidade = capa;
       this.tipo_de_carga = tipo;
   }
 
-  // Função para calcular o tempo estimado de atraque do barco
-  public double calcularTempoDeAtracacao(double distancia, double velocidadeMedia) {
+  // Método para calcular o espaço restante após carregar
+  public double calcularEspacoRestante(double cargaAtual) {
       if (!status_operacional) {
-          System.out.println("O barco está fora de operação.");
-          return -1; // Retorna -1 para indicar que o cálculo não foi possível
+          System.out.println("Contêiner não está operacional. Verifique o status.");
+          return -1; // Indica erro
       }
 
-      if (velocidadeMedia <= 0) {
-          System.out.println("Erro: Velocidade média inválida.");
-          return -1; // Verifica se a velocidade média é válida
+      if (cargaAtual > capacidade) {
+          System.out.println("A carga atual excede a capacidade do contêiner!");
+          return -1; // Indica erro
       }
 
-      double tempo = distancia / velocidadeMedia; // Fórmula: tempo = distância / velocidade
-      System.out.printf("Tempo estimado para atraque da carga: %.2f horas%n", tempo);
-      return tempo;
+      double espacoRestante = capacidade - cargaAtual;
+      System.out.println("Espaço restante no contêiner: " + espacoRestante + " toneladas.");
+      return espacoRestante;
   }
   @Override
     public void agendarAtracacao() {
@@ -64,10 +64,25 @@ class Carga implements Interfaceporto {
         System.out.println("Gerenciamento da fila de espera realizado.");
         // Lógica para organizar a fila de navios esperando atracação
     }
-
+    public double calcularTempoDeAtracacao(double distancia, double velocidadeMedia) {
+        if (!status_operacional) {
+            System.out.println("O barco está fora de operação.");
+            return -1; // Retorna -1 para indicar que o cálculo não foi possível
+        }
+  
+        if (velocidadeMedia <= 0) {
+            System.out.println("Erro: Velocidade média inválida.");
+            return -1; // Verifica se a velocidade média é válida
+        }
+  
+        double tempo = distancia / velocidadeMedia; // Fórmula: tempo = distância / velocidade
+        System.out.printf("Tempo estimado para atraque do container: %.2f horas%n", tempo);
+        return tempo;
+    }
     @Override
     public void cal_taxa_de_operacao() {
         System.out.println("Cálculo da taxa de operação concluído.");
         // Lógica para calcular taxas de operação do porto
     }
 }
+
