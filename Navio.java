@@ -2,11 +2,13 @@ public class Navio implements Interfaceporto {
     boolean status_operacional;
     double capacidade; // Capacidade de carga do veículo em toneladas
     String tipo_de_carga;
+    
     public Navio(String tipo, boolean ou, double capa) {
         this.status_operacional = ou;
         this.capacidade = capa;
         this.tipo_de_carga = tipo;
     }
+
     @Override
     public void agendarAtracacao() {
         System.out.println("Agendamento da atracação concluído.");
@@ -24,10 +26,15 @@ public class Navio implements Interfaceporto {
         System.out.println("Relatório de desempenho do porto gerado.");
         // Lógica para criar e exibir o relatório de desempenho
     }
-
-    public void verificar_Disponibilidade() {
-        System.out.println("Verificando a disponibilidade de recursos e atracação.");
-        // Lógica para verificar disponibilidade no porto
+    //checa a disponibilidade do navio
+    public boolean verificar_Disponibilidade(boolean status_operacional) {
+        if (!status_operacional) {
+            System.out.println("Contêiner não está operacional. Verifique o status.");
+            return false; // Contêiner não operacional
+        } else {
+            System.out.println("Tudo certo. O Contêiner está operacional.");
+            return true; // Contêiner operacional
+        }
     }
 
     public void alocar_Recursos() {
@@ -51,6 +58,7 @@ public class Navio implements Interfaceporto {
         System.out.println("Cálculo da taxa de operação concluído.");
         // Lógica para calcular taxas de operação do porto
     }
+    // calcula o tempo de atracacao
     public double calcularTempoDeAtracacao(double distancia, double velocidadeMedia) {
         if (!status_operacional) {
             System.out.println("O barco está fora de operação.");
@@ -63,7 +71,21 @@ public class Navio implements Interfaceporto {
         }
   
         double tempo = distancia / velocidadeMedia; // Fórmula: tempo = distância / velocidade
-        System.out.printf("Tempo estimado para atraque do NAvio: %.2f horas%n", tempo);
+        System.out.printf("Tempo estimado para atraque do Navio: %.2f horas%n", tempo);
         return tempo;
+    }
+    //função que checa status
+    boolean disponibilidade(boolean status) {
+        return status;
+    }
+    
+    boolean statusoperacional = disponibilidade(this.status_operacional);
+    // Função adicional que fornece o status detalhado do navio
+    public void statusNavio() {
+        double resul_capacidade = (capacidade/1_000);
+        System.out.println("Status do Navio:");
+        System.out.println("Operacional: " + (statusoperacional ? "Sim" : "Não"));
+        System.out.println("Tipo de Carga: " + tipo_de_carga);
+        System.out.println("Capacidade de Carga: " + resul_capacidade + " toneladas");
     }
 }

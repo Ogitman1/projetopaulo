@@ -1,6 +1,6 @@
-class Carga implements Interfaceporto {
+class Carga {
   boolean status_operacional;
-  double capacidade; // Capacidade do barco em toneladas
+  double capacidade;
   String tipo_de_carga;
 
   // Construtor que inicializa os objetos
@@ -10,64 +10,50 @@ class Carga implements Interfaceporto {
       this.tipo_de_carga = tipo;
   }
 
-  // Função para calcular o tempo estimado de atraque do barco
-  public double calcularTempoDeAtracacao(double distancia, double velocidadeMedia) {
-      if (!status_operacional) {
-          System.out.println("O barco está fora de operação.");
-          return -1; // Retorna -1 para indicar que o cálculo não foi possível
-      }
-
-      if (velocidadeMedia <= 0) {
-          System.out.println("Erro: Velocidade média inválida.");
-          return -1; // Verifica se a velocidade média é válida
-      }
-
-      double tempo = distancia / velocidadeMedia; // Fórmula: tempo = distância / velocidade
-      System.out.printf("Tempo estimado para atraque da carga: %.2f horas%n", tempo);
-      return tempo;
+  // Função para retornar o status operacional
+  public boolean getStatusOperacional() {
+      return this.status_operacional;
   }
-  @Override
-    public void agendarAtracacao() {
-        System.out.println("Agendamento da atracação concluído.");
-        // Lógica para agendar uma atracação no porto
+
+  // Função para retornar a capacidade
+  public double getCapacidade() {
+      return this.capacidade;
+  }
+
+  // Função para retornar o tipo de carga
+  public String getTipoDeCarga() {
+      return this.tipo_de_carga;
+  }
+  //calculo de tempo de atracacao
+  public double calcularTempoDeAtracacao(double distancia, double velocidadeMedia) {
+    if (!status_operacional) {
+        System.out.println("O barco está fora de operação.");
+        return -1; // Retorna -1 para indicar que o cálculo não foi possível
     }
 
-    @Override
-    public void rastrear_conteineres() {
-        System.out.println("Rastreamento de contêineres iniciado.");
-        // Lógica para rastrear contêineres no sistema
+    if (velocidadeMedia <= 0) {
+        System.out.println("Erro: Velocidade média inválida.");
+        return -1; // Verifica se a velocidade média é válida
     }
 
-    @Override
-    public void rel_desempenho_porto() {
-        System.out.println("Relatório de desempenho do porto gerado.");
-        // Lógica para criar e exibir o relatório de desempenho
+    double tempo = distancia / velocidadeMedia; // Fórmula: tempo = distância / velocidade
+    System.out.printf("Tempo estimado para atraque do container: %.2f horas%n", tempo);
+    return tempo;
+}
+  // Função para retornar todas as informações de uma vez
+  public String retornarInformacoes() {
+      return String.format(
+          "Status Operacional: %b, Capacidade: %.2f toneladas, Tipo de Carga: %s",
+          this.status_operacional, this.capacidade, this.tipo_de_carga
+      );
+  }
+  public boolean verificar_Disponibilidade(boolean status_operacional) {
+    if (!status_operacional) {
+        System.out.println("Carga não está operacional. Verifique o status.");
+        return false; // Carga não operacional
+    } else {
+        System.out.println("Tudo certo. O Carga está operacional.");
+        return true; // Carga operacional
     }
-
-    public void verificar_Disponibilidade() {
-        System.out.println("Verificando a disponibilidade de recursos e atracação.");
-        // Lógica para verificar disponibilidade no porto
-    }
-
-    public void alocar_Recursos() {
-        System.out.println("Recursos alocados com sucesso.");
-        // Lógica para alocar recursos necessários para operações
-    }
-
-    public void atualizar_Status() {
-        System.out.println("Status atualizado no sistema.");
-        // Lógica para atualizar o status das operações ou cargas
-    }
-
-    @Override
-    public void gerenciar_fila_de_espera() {
-        System.out.println("Gerenciamento da fila de espera realizado.");
-        // Lógica para organizar a fila de navios esperando atracação
-    }
-
-    @Override
-    public void cal_taxa_de_operacao() {
-        System.out.println("Cálculo da taxa de operação concluído.");
-        // Lógica para calcular taxas de operação do porto
-    }
+}
 }
